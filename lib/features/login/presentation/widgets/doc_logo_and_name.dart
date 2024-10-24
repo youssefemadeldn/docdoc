@@ -1,4 +1,5 @@
 import 'package:docdoc/core/theme/app_colors.dart';
+import 'package:docdoc/core/theme/app_font_weigth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +18,7 @@ class DocLogoAndName extends StatelessWidget {
           'DocDoc',
           style: TextStyle(
             fontSize: 24.sp,
-            fontWeight: FontWeight.w700,
+            fontWeight: AppFontWeights.bold,
             color: AppColors.black,
           ),
         ),
