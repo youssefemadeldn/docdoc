@@ -21,7 +21,7 @@ import '../../features/login/domain/repo/base_login_repo.dart' as _i375;
 import '../../features/login/domain/use_cases/login_use_case.dart' as _i191;
 import '../../features/login/presentation/controller/cubit/login_cubit.dart'
     as _i982;
-import '../network/dio_factory.dart' as _i798;
+import '../network/dio_module.dart' as _i798;
 import '../network/rest_client.dart' as _i876;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -38,7 +38,7 @@ extension GetItInjectableX on _i174.GetIt {
     final networkModule = _$NetworkModule();
     gh.lazySingleton<_i361.Dio>(() => networkModule.provideDio());
     gh.lazySingleton<_i876.RestClient>(
-        () => networkModule.provideApiService(gh<_i361.Dio>()));
+        () => networkModule.provideRestClient(gh<_i361.Dio>()));
     gh.factory<_i444.BaseRemoteLoginDataSource>(() =>
         _i259.RemoteLoginDataSourceImpl(apiService: gh<_i876.RestClient>()));
     gh.factory<_i375.BaseLoginRepo>(() => _i176.LoginRepoImpl(
@@ -51,4 +51,4 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$NetworkModule extends _i798.NetworkModule {}
+class _$NetworkModule extends _i798.DioModule {}
