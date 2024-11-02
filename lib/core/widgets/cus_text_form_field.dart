@@ -13,6 +13,8 @@ class CusTextFormField extends StatelessWidget {
   final bool? isObscureText;
   final Widget? suffixIcon;
   final Color? fillColor;
+  final TextEditingController? controller;
+  final Function(String?) validator;
 
   const CusTextFormField({
     super.key,
@@ -25,16 +27,30 @@ class CusTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.hintStyle,
     this.fillColor,
+    this.controller,
+    required this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       // decoration
-      // enabled
+
+      // enabledBorder
       // OutlineInputBorder
-      // focused
+
+      // focusedBorder
       // OutlineInputBorder
+
+      // errorBorder
+      // OutlineInputBorder
+
+      // errorFocusedBorder
+      // OutlineInputBorder
+      controller: controller,
+      validator: (value) {
+        return validator(value);
+      },
       decoration: InputDecoration(
         isDense: true,
         contentPadding: contentPadding ??
@@ -55,6 +71,22 @@ class CusTextFormField extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(16),
             ),
+
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: AppColors.red,
+            width: 1.3,
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
+
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: AppColors.red,
+            width: 1.3,
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
         hintStyle: hintStyle ?? AppStyles.font14LightGreyRegular,
         hintText: hintText,
         suffixIcon: suffixIcon,
