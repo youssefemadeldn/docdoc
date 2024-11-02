@@ -1,16 +1,27 @@
+import 'package:docdoc/core/di/di.dart';
 import 'package:docdoc/core/routes/routes.dart';
+import 'package:docdoc/features/home/presentation/view/home_view.dart';
+import 'package:docdoc/features/login/presentation/controller/cubit/login_cubit.dart';
 import 'package:docdoc/features/login/presentation/views/login_view.dart';
 import 'package:docdoc/features/login/presentation/views/on_boarding_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.onBoardingView:
-        return MaterialPageRoute(builder: (_) => OnBoardingView());
+        return MaterialPageRoute(builder: (_) => const OnBoardingView());
 
       case Routes.loginView:
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<LoginCubit>(),
+            child: const LoginView(),
+          ),
+        );
+      case Routes.homeView:
+        return MaterialPageRoute(builder: (_) => const HomeView());
 
       default:
         return MaterialPageRoute(
