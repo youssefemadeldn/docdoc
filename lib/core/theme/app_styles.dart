@@ -70,4 +70,14 @@ class AppStyles {
     fontWeight: AppFontWeights.medium,
     color: AppColors.darkBlue,
   );
+  static TextStyle font14BlueSemiBold = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: AppFontWeights.semiBold,
+    color: AppColors.mainBlue,
+  );
+  static TextStyle font15DarkBlueMedium = TextStyle(
+    fontSize: 15.sp,
+    fontWeight: AppFontWeights.medium,
+    color: AppColors.darkBlue,
+  );
 }
