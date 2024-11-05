@@ -1,3 +1,4 @@
+import 'package:docdoc/core/network/network_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
@@ -20,15 +21,24 @@ class LoginCubit extends Cubit<LoginState> {
   final formKey = GlobalKey<FormState>();
   LoginCubit({required this.loginUseCase}) : super(LoginInitialState());
 
-  void emitLoginState(
-      {required LoginRequestBodyModel loginRequestBodyModel}) async {
+  void emitLoginState() async {
     emit(LoginLoadingState());
-    var either =
-        await loginUseCase.call(loginRequestBodyModel: loginRequestBodyModel);
+    bool isConnected = await NetworkHelper.checkInternet();
 
-    either.fold(
-      (failure) => emit(LoginFailureState(failure: failure)),
-      (response) => emit(LoginSuccessState(loginResponseEntity: response)),
-    );
+    if (!isConnected) {
+      emit(LoginDiscountedInternetState());
+    } else {
+      var either = await loginUseCase.call(
+        loginRequestBodyModel: LoginRequestBodyModel(
+          email: emailController.text,
+          password: passwordController.text,
+        ),
+      );
+
+      either.fold(
+        (failure) => emit(LoginFailureState(failure: failure)),
+        (response) => emit(LoginSuccessState(loginResponseEntity: response)),
+      );
+    }
   }
 }

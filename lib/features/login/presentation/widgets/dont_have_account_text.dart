@@ -1,3 +1,5 @@
+import 'package:docdoc/core/helper/extinctions.dart';
+import 'package:docdoc/core/routes/routes.dart';
 import 'package:docdoc/core/theme/app_styles.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class DontHaveAccountText extends StatelessWidget {
             style: AppStyles.font13BlueSemiBold,
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                // context.pushReplacementNamed(Routes.signUpScreen);
+                context.pushReplacementNamed(Routes.signView);
               },
           ),
         ],

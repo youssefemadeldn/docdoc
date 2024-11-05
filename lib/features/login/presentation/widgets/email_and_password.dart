@@ -2,7 +2,6 @@ import 'package:docdoc/core/helper/regex_helper.dart';
 import 'package:docdoc/core/helper/spacing.dart';
 import 'package:docdoc/core/widgets/cus_text_form_field.dart';
 import 'package:docdoc/features/login/presentation/controller/cubit/login_cubit.dart';
-import 'package:docdoc/features/login/presentation/widgets/password_validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,34 +20,33 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
   bool hasSpecialCharacter = false;
   bool hasNumber = false;
   bool hasMinLength = false;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    passwordController = context.read<LoginCubit>().passwordController;
-    setUpPasswordControllerListener();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   passwordController = context.read<LoginCubit>().passwordController;
+  //   setUpPasswordControllerListener();
+  // }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    passwordController.dispose();
-    super.dispose();
-  }
+  // void setUpPasswordControllerListener() {
+  //   passwordController.addListener(
+  //     () => setState(() {
+  //       hasLowerCase = RegexHelper.hasLowerCase(passwordController.text);
+  //       hasUpperCase = RegexHelper.hasUpperCase(passwordController.text);
+  //       hasSpecialCharacter =
+  //           RegexHelper.hasSpecialCharacter(passwordController.text);
+  //       hasNumber = RegexHelper.hasNumber(passwordController.text);
+  //       hasMinLength = RegexHelper.hasMinLength(passwordController.text, 8);
+  //     }),
+  //   );
+  // }
 
-  void setUpPasswordControllerListener() {
-    passwordController.addListener(
-      () => setState(() {
-        hasLowerCase = RegexHelper.hasLowerCase(passwordController.text);
-        hasUpperCase = RegexHelper.hasUpperCase(passwordController.text);
-        hasSpecialCharacter =
-            RegexHelper.hasSpecialCharacter(passwordController.text);
-        hasNumber = RegexHelper.hasNumber(passwordController.text);
-        hasMinLength = RegexHelper.hasMinLength(passwordController.text, 8);
-      }),
-    );
-  }
-
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   passwordController.dispose();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -87,13 +85,13 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
             ),
           ),
           verticalSpace(height: 24),
-          PasswordValidation(
-            hasLowerCase: hasLowerCase,
-            hasUpperCase: hasUpperCase,
-            hasSpecialCharacter: hasSpecialCharacter,
-            hasNumber: hasNumber,
-            hasMinLength: hasMinLength,
-          ),
+          // PasswordValidation(
+          //   hasLowerCase: hasLowerCase,
+          //   hasUpperCase: hasUpperCase,
+          //   hasSpecialCharacter: hasSpecialCharacter,
+          //   hasNumber: hasNumber,
+          //   hasMinLength: hasMinLength,
+          // ),
         ],
       ),
     );
