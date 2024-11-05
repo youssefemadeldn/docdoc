@@ -1,14 +1,10 @@
 class LoginResponseEntity {
-  String message;
-  UserDataEntity userData;
-  bool status;
-  int code;
+  String? message;
+  UserDataEntity? userData;
+  bool? status;
+  int? code;
 
-  LoginResponseEntity(
-      {required this.message,
-      required this.userData,
-      required this.status,
-      required this.code});
+  LoginResponseEntity({this.message, this.userData, this.status, this.code});
 }
 
 class UserDataEntity {
