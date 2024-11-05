@@ -13,6 +13,7 @@ abstract class DioModule {
         baseUrl: ApiConstant.baseUrl,
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
+        validateStatus: (status) => true,
       ),
     );
     dio.interceptors
