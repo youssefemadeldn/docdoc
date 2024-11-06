@@ -21,7 +21,16 @@ import '../../features/login/domain/repo/base_login_repo.dart' as _i375;
 import '../../features/login/domain/use_cases/login_use_case.dart' as _i191;
 import '../../features/login/presentation/controller/cubit/login_cubit.dart'
     as _i982;
-import '../network/dio_module.dart' as _i798;
+import '../../features/sign_up/data/data_sources/remote/base_remote_sign_up_data_source.dart'
+    as _i200;
+import '../../features/sign_up/data/data_sources/remote/remote_sign_up_data_source_impl.dart'
+    as _i117;
+import '../../features/sign_up/data/repo/sign_up_repo_impl.dart' as _i138;
+import '../../features/sign_up/domain/repo/base_sign_up_repo.dart' as _i594;
+import '../../features/sign_up/domain/use_cases/sing_up_use_case.dart' as _i273;
+import '../../features/sign_up/presentation/controller/sign_up_cubit/sign_up_cubit.dart'
+    as _i484;
+import '../network/dio_module.dart' as _i614;
 import '../network/rest_client.dart' as _i876;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -35,14 +44,22 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    final networkModule = _$NetworkModule();
-    gh.lazySingleton<_i361.Dio>(() => networkModule.provideDio());
+    final dioModule = _$DioModule();
+    gh.lazySingleton<_i361.Dio>(() => dioModule.provideDio());
     gh.lazySingleton<_i876.RestClient>(
-        () => networkModule.provideRestClient(gh<_i361.Dio>()));
+        () => dioModule.provideRestClient(gh<_i361.Dio>()));
+    gh.factory<_i200.BaseRemoteSignUpDataSource>(() =>
+        _i117.RemoteSignUpDataSourceImpl(restClient: gh<_i876.RestClient>()));
+    gh.factory<_i594.BaseSignUpRepo>(() => _i138.SignUpRepoImpl(
+        baseRemoteSignUpDataSource: gh<_i200.BaseRemoteSignUpDataSource>()));
     gh.factory<_i444.BaseRemoteLoginDataSource>(() =>
         _i259.RemoteLoginDataSourceImpl(apiService: gh<_i876.RestClient>()));
+    gh.factory<_i273.SingUpUseCase>(
+        () => _i273.SingUpUseCase(baseSingUpRepo: gh<_i594.BaseSignUpRepo>()));
     gh.factory<_i375.BaseLoginRepo>(() => _i176.LoginRepoImpl(
         baseRemoteLoginDataSource: gh<_i444.BaseRemoteLoginDataSource>()));
+    gh.factory<_i484.SignUpCubit>(
+        () => _i484.SignUpCubit(singUpUseCases: gh<_i273.SingUpUseCase>()));
     gh.factory<_i191.LoginUseCase>(
         () => _i191.LoginUseCase(baseLoginRepo: gh<_i375.BaseLoginRepo>()));
     gh.factory<_i982.LoginCubit>(
@@ -51,4 +68,4 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$NetworkModule extends _i798.DioModule {}
+class _$DioModule extends _i614.DioModule {}

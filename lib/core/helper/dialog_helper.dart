@@ -4,7 +4,7 @@ class DialogHelper {
   // Static method to show a dialog with customizable parameters
   static void showCustomDialog({
     required BuildContext context,
-    required String title,
+    required Widget title,
     required String content,
     TextStyle? leftActionStyle,
     TextStyle? rightActionStyle,
@@ -20,7 +20,12 @@ class DialogHelper {
       barrierDismissible: isDismissible,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text(title),
+          title: title
+          // Text(
+          //   title,
+          //   style: titleStyle ?? const TextStyle(),
+          // )
+          ,
           content: Text(
             content,
             style: contentStyle ?? const TextStyle(),
@@ -85,6 +90,11 @@ class DialogHelper {
 
   // Method to hide the loading dialog
   static void hideLoadingDialog(BuildContext context) {
+    Navigator.of(context, rootNavigator: true).pop();
+  }
+
+  // Method to hide the loading dialog
+  static void hideDialog(BuildContext context) {
     Navigator.of(context, rootNavigator: true).pop();
   }
 }

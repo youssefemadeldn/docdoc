@@ -1,7 +1,6 @@
 import 'package:docdoc/core/helper/spacing.dart';
 import 'package:docdoc/core/theme/app_styles.dart';
 import 'package:docdoc/core/widgets/cus_text_button.dart';
-import 'package:docdoc/features/login/data/models/login_request_body_model.dart';
 import 'package:docdoc/features/login/presentation/controller/cubit/login_cubit.dart';
 import 'package:docdoc/features/login/presentation/widgets/dont_have_account_text.dart';
 import 'package:docdoc/features/login/presentation/widgets/email_and_password.dart';
@@ -58,7 +57,7 @@ class LoginView extends StatelessWidget {
                     const TermsAndConditionsText(),
                     verticalSpace(height: 60),
                     const DontHaveAccountText(),
-                    LoginBlocListener(),
+                    const LoginBlocListener(),
                   ],
                 ),
               ],
@@ -71,13 +70,7 @@ class LoginView extends StatelessWidget {
 
   void validateThenLogin(BuildContext context) {
     if (BlocProvider.of<LoginCubit>(context).formKey.currentState!.validate()) {
-      BlocProvider.of<LoginCubit>(context).emitLoginState(
-        loginRequestBodyModel: LoginRequestBodyModel(
-          email: BlocProvider.of<LoginCubit>(context).emailController.text,
-          password:
-              BlocProvider.of<LoginCubit>(context).passwordController.text,
-        ),
-      );
+      BlocProvider.of<LoginCubit>(context).emitLoginState();
     }
   }
 }
