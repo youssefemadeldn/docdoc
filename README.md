@@ -31,9 +31,9 @@ An efficient and user-friendly Flutter application designed for managing doctor 
 
 ## Screenshots
 
-| Login View                        | Appointment Booking                | Doctor Profile                    |
+| Login View                        | Register View                      | Doctor Profile                    |
 |-----------------------------------|------------------------------------|-----------------------------------|
-|![login_view](https://github.com/user-attachments/assets/12fb163f-5cad-4faf-8748-178b27deb423)| ![login_view](https://github.com/user-attachments/assets/32956415-a7a6-4d71-941e-6ed9d316931d)| ![login_view](https://github.com/user-attachments/assets/73fd10eb-8eee-46a1-9110-e7969d665b53)|
+|![login_view](https://github.com/user-attachments/assets/12fb163f-5cad-4faf-8748-178b27deb423)| ![register_view](https://github.com/user-attachments/assets/bf700dbf-0828-4d02-bc22-ec37acefb384)| ![login_view](https://github.com/user-attachments/assets/73fd10eb-8eee-46a1-9110-e7969d665b53)|
 
 | Login View                        | Appointment Booking                | Doctor Profile                    |
 |-----------------------------------|------------------------------------|-----------------------------------|
