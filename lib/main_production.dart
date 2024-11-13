@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // to fix text being hidden in release mode
   await ScreenUtil.ensureScreenSize();
   Bloc.observer = MyBlocObserver();
 
