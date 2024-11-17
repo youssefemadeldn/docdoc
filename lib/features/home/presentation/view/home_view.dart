@@ -1,3 +1,5 @@
+import 'package:docdoc/core/theme/app_colors.dart';
+import 'package:docdoc/features/home/presentation/widgets/home_top_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
@@ -6,7 +8,24 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: AppColors.white,
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.fromLTRB(
+            20,
+            16,
+            20,
+            28,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HomeTopBar(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
