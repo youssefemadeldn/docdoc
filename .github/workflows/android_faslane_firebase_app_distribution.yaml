@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  Distribute_To_Firebase:
+  Distribute_To_Firebase: # recommend "build" Other than "Distribute_To_Firebase" 
     runs-on: ubuntu-latest
     steps:
     - name: Check out My Repo Code
