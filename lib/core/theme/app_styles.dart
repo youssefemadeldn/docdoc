@@ -105,4 +105,9 @@ class AppStyles {
     fontWeight: AppFontWeights.bold,
     color: AppColors.darkBlue,
   );
+  static TextStyle font18WhiteMedium = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: AppFontWeights.medium,
+    color: Colors.white,
+  );
 }

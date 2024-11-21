@@ -1,4 +1,5 @@
 import 'package:docdoc/core/theme/app_colors.dart';
+import 'package:docdoc/features/home/presentation/widgets/doctors_blue_container.dart';
 import 'package:docdoc/features/home/presentation/widgets/home_top_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +19,11 @@ class HomeView extends StatelessWidget {
             20,
             28,
           ),
-          child: Column(
+          child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               HomeTopBar(),
+              DoctorsBlueContainer(),
             ],
           ),
         ),
