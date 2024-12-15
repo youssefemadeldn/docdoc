@@ -31,13 +31,15 @@ An efficient and user-friendly Flutter application designed for managing doctor 
 
 ## Screenshots
 
-| Login View                        | Register View                      | Doctor Profile                    |
+| Login View                        | Register View                      | Home View                         |
 |-----------------------------------|------------------------------------|-----------------------------------|
-|![login_view](https://github.com/user-attachments/assets/12fb163f-5cad-4faf-8748-178b27deb423)| ![register_view](https://github.com/user-attachments/assets/bf700dbf-0828-4d02-bc22-ec37acefb384)| ![login_view](https://github.com/user-attachments/assets/73fd10eb-8eee-46a1-9110-e7969d665b53)|
+|![login_view_361_754](https://github.com/user-attachments/assets/be621e37-0ff7-4fc4-b626-b4e13efaba3f)| ![register_view](https://github.com/user-attachments/assets/bf700dbf-0828-4d02-bc22-ec37acefb384)| ![home design361_754](https://github.com/user-attachments/assets/fd872cca-da8e-43e1-84e0-587481ac323a)
+|
 
 | Login View                        | Appointment Booking                | Doctor Profile                    |
 |-----------------------------------|------------------------------------|-----------------------------------|
-|![login_view](https://github.com/user-attachments/assets/12fb163f-5cad-4faf-8748-178b27deb423)| ![login_view](https://github.com/user-attachments/assets/32956415-a7a6-4d71-941e-6ed9d316931d)| ![login_view](https://github.com/user-attachments/assets/73fd10eb-8eee-46a1-9110-e7969d665b53)|
+|![login_view](https://github.com/user-attachments/assets/12fb163f-5cad-4faf-8748-178b27deb423)| ![login_view](https://github.com/user-attachments/assets/32956415-a7a6-4d71-941e-6ed9d316931d)| ![login_view](https://github.com/user-attachments/assets/32956415-a7a6-4d71-941e-6ed9d316931d)
+|
 
 | Home Screen                       | Appointment Booking                | Doctor Profile                    |
 |-----------------------------------|------------------------------------|-----------------------------------|
