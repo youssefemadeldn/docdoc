@@ -3,10 +3,12 @@ import 'package:docdoc/core/error/failure.dart';
 import 'package:docdoc/core/network/network_helper.dart';
 import 'package:docdoc/features/home/domain/entities/home_response_entity.dart';
 import 'package:docdoc/features/home/domain/use_cases/home_use_case.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'home_state.dart';
 
+@injectable
 class HomeCubit extends Cubit<HomeState> {
   HomeUseCase homeUseCase;
 

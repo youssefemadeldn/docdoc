@@ -1,11 +1,16 @@
+import 'package:docdoc/core/helper/dialog_helper.dart';
 import 'package:docdoc/core/helper/spacing.dart';
 import 'package:docdoc/core/theme/app_colors.dart';
+import 'package:docdoc/core/theme/app_styles.dart';
+import 'package:docdoc/features/home/domain/entities/home_response_entity.dart';
+import 'package:docdoc/features/home/presentation/controller/home_cubit/home_cubit.dart';
 import 'package:docdoc/features/home/presentation/widgets/doctor_specialty_list_view.dart';
 import 'package:docdoc/features/home/presentation/widgets/doctor_specialty_see_all.dart';
 import 'package:docdoc/features/home/presentation/widgets/doctors_blue_container.dart';
 import 'package:docdoc/features/home/presentation/widgets/doctors_list_view.dart';
 import 'package:docdoc/features/home/presentation/widgets/home_top_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeView extends StatelessWidget {
@@ -32,9 +37,67 @@ class HomeView extends StatelessWidget {
               verticalSpace(height: 24.h),
               const DoctorSpecialtySeeAll(),
               verticalSpace(height: 18.h),
-              const DoctorSpecialtyListView(),
-              verticalSpace(height: 8.h),
-              const DoctorsListView(),
+              BlocBuilder<HomeCubit, HomeState>(
+                buildWhen: (previous, current) =>
+                    current is HomeDiscountedInternetState ||
+                    current is HomeFailureState ||
+                    current is HomeSuccessState ||
+                    current is SpeciallyLoadingState,
+                builder: (context, state) {
+                  switch (state) {
+                    case SpeciallyLoadingState():
+                      DialogHelper.showLoadingDialog(
+                        context: context,
+                        indicatorColor: AppColors.mainBlue,
+                      );
+                      break;
+                    case HomeDiscountedInternetState():
+                      DialogHelper.hideLoadingDialog(context);
+                      DialogHelper.showCustomDialog(
+                        context: context,
+                        content: 'No Internet Connection',
+                        contentStyle: AppStyles.font8DarkBlueMedium,
+                        leftActionStyle: AppStyles.font10BlueSemiBold,
+                        rightActionStyle: AppStyles.font10BlueSemiBold,
+                        title: Icon(
+                          Icons.wifi_off,
+                          color: AppColors.red,
+                          size: 25.r,
+                        ),
+                      );
+                      break;
+                    case HomeFailureState():
+                      DialogHelper.hideLoadingDialog(context);
+                      DialogHelper.showCustomDialog(
+                        context: context,
+                        title: Icon(
+                          Icons.error,
+                          color: AppColors.red,
+                          size: 25.r,
+                        ),
+                        content: state.failure.errorMessage,
+                        contentStyle: AppStyles.font8DarkBlueMedium,
+                        leftActionStyle: AppStyles.font10BlueSemiBold,
+                        rightActionStyle: AppStyles.font10BlueSemiBold,
+                      );
+                      break;
+                    case HomeSuccessState():
+                      DataEntity? list =
+                          state.homeResponseEntity.data as DataEntity?;
+                      return Column(
+                        children: [
+                          DoctorSpecialtyListView(
+                            dataEntity: [],
+                          ),
+                          verticalSpace(height: 8.h),
+                          const DoctorsListView(),
+                        ],
+                      );
+                    default:
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
             ],
           ),
         ),
