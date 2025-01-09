@@ -24,12 +24,13 @@ class RemoteLoginDataSourceImpl extends BaseRemoteLoginDataSource {
           await apiService.login(loginRequestBodyModel);
 
       if (NetworkHelper.isValidResponse(code: loginResponseModel.code)) {
-        // Mapping...
+        // Success Case:
+        //Mapping response to domain entity
         LoginResponseEntity loginResponseEntity =
             LoginMapper.toDomain(loginResponseModel);
         return right(loginResponseEntity);
       } else {
-        // Return server error with message from the response
+        // Server Error Case:
         return left(
           ServerFailure(
             failureTitle: 'Server Error',
