@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:docdoc/core/helper/spacing.dart';
 import 'package:docdoc/core/theme/app_styles.dart';
 import 'package:docdoc/features/home/domain/entities/home_response_entity.dart';
@@ -20,11 +21,18 @@ class DoctorsListView extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12.0),
-                  child: Image.network(
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl:
+                        "https://cdn.pixabay.com/photo/2023/12/15/18/32/ai-generated-8451270_640.png",
                     width: 110.w,
                     height: 120.h,
-                    'https://static.wikia.nocookie.net/five-world-war/images/6/64/Hisoka.jpg/revision/latest?cb=20190313114050',
-                    fit: BoxFit.cover,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
                 horizontalSpace(width: 16),
@@ -33,18 +41,18 @@ class DoctorsListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Name',
+                        doctorsList?[index]?.name ?? 'Name',
                         style: AppStyles.font18DarkBlueBold,
                         overflow: TextOverflow.ellipsis,
                       ),
                       verticalSpace(height: 5),
                       Text(
-                        'Degree | 0111111111111',
+                        doctorsList?[index]?.degree ?? 'Degree | 0111111111111',
                         style: AppStyles.font12GreyMedium,
                       ),
                       verticalSpace(height: 5),
                       Text(
-                        'Email@email.com',
+                        doctorsList?[index]?.email ?? 'Email@email.com',
                         style: AppStyles.font12GreyMedium,
                       ),
                     ],

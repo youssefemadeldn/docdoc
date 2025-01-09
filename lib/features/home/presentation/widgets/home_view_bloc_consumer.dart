@@ -1,7 +1,4 @@
-import 'package:docdoc/core/helper/dialog_helper.dart';
 import 'package:docdoc/core/helper/spacing.dart';
-import 'package:docdoc/core/theme/app_colors.dart';
-import 'package:docdoc/core/theme/app_styles.dart';
 import 'package:docdoc/features/home/domain/entities/home_response_entity.dart';
 import 'package:docdoc/features/home/presentation/controller/home_cubit/home_cubit.dart';
 import 'package:docdoc/features/home/presentation/widgets/doctor_specialty_list_view.dart';
@@ -15,7 +12,89 @@ class HomeViewBlocConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeCubit, HomeState>(
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        if (state is HomeSuccessState) {
+          var response = state.homeResponseEntity.data;
+          var doctorList = response
+                  ?.where((e) => e.doctors != null)
+                  .expand((e) => e.doctors!)
+                  .toList() ??
+              [];
+
+          var speciallyList = doctorList
+              .where((e) => e.specialization != null)
+              .map((e) => e.specialization!)
+              .fold<Map<String, SpecializationEntity>>({},
+                  (map, specialization) {
+                map[specialization.name ?? ''] = specialization;
+                return map;
+              })
+              .values
+              .toList();
+
+          return Expanded(
+            child: Column(
+              children: [
+                DoctorSpecialtyListView(
+                  specializationEntity: speciallyList,
+                ),
+                verticalSpace(height: 8.h),
+                DoctorsListView(
+                  doctorsList: doctorList,
+                ),
+              ],
+            ),
+          );
+        } else if (state is SpeciallyLoadingState) {
+          return SizedBox(
+            height: 100.h,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (state is HomeFailureState) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 64,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    state.failure.errorMessage,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  // if (onRetry != null) ...[
+                  //   const SizedBox(height: 16),
+                  //   ElevatedButton(
+                  //     onPressed: onRetry,
+                  //     child: Text('Retry'),
+                  //   ),
+                  // ],
+                ],
+              ),
+            ),
+          );
+        }
+
+        return const SizedBox.shrink();
+      },
+    );
+  }
+}
+/*
+ BlocListener<HomeCubit, HomeState>(
       listener: (context, state) {
         if (state is HomeDiscountedInternetState) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -99,5 +178,4 @@ class HomeViewBlocConsumer extends StatelessWidget {
         },
       ),
     );
-  }
-}
+    */

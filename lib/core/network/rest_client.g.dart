@@ -7,7 +7,6 @@ part of 'rest_client.dart';
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
 class _RestClient implements RestClient {
   _RestClient(
@@ -95,10 +94,15 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<HomeResponseModel> getSpeciallyDoctors() async {
+  Future<HomeResponseModel> getSpeciallyDoctors(String token) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Accept': 'application/json',
+      r'Custom-Header': 'Your header',
+      r'Authorization': token,
+    };
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<HomeResponseModel>(Options(
       method: 'GET',
