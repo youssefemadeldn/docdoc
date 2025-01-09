@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:docdoc/core/cache/shared_pref.dart';
 import 'package:docdoc/core/error/failure.dart';
 import 'package:docdoc/core/network/network_helper.dart';
 import 'package:docdoc/core/network/rest_client.dart';
@@ -25,9 +26,12 @@ class RemoteLoginDataSourceImpl extends BaseRemoteLoginDataSource {
 
       if (NetworkHelper.isValidResponse(code: loginResponseModel.code)) {
         // Success Case:
-        //Mapping response to domain entity
+        // 1 Mapping response to domain entity
         LoginResponseEntity loginResponseEntity =
             LoginMapper.toDomain(loginResponseModel);
+        // 2 save User token
+        SharedPrefUtils.saveData(
+            key: 'token', data: loginResponseEntity.userData!.token);
         return right(loginResponseEntity);
       } else {
         // Server Error Case:

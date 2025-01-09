@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:docdoc/core/cache/shared_pref.dart';
 import 'package:docdoc/core/error/failure.dart';
 import 'package:docdoc/core/network/network_helper.dart';
 import 'package:docdoc/core/network/rest_client.dart';
@@ -18,8 +19,8 @@ class HomeRemoteDataSourceImpl implements BaseHomeRemoteDataSource {
   @override
   Future<Either<Failure, HomeResponseEntity>> getHomeData() async {
     try {
-      HomeResponseModel homeResponseModel = await restClient.getSpeciallyDoctors(
-          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3ZjYXJlLmludGVncmF0aW9uMjUuY29tL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzM2NDA4MjU3LCJleHAiOjE3MzY0OTQ2NTcsIm5iZiI6MTczNjQwODI1NywianRpIjoiQmQ2WEM5SGhSNFZxOW1IWiIsInN1YiI6IjI2NDkiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.0c7y4fhowoP2SCHCge607IcTn7jv3WrY78J9rqPYqn8');
+      HomeResponseModel homeResponseModel = await restClient
+          .getSpeciallyDoctors('Bearer ${SharedPrefUtils.getData('token')}');
       if (NetworkHelper.isValidResponse(code: homeResponseModel.code)) {
         // Success Case:
         //Mapping response to domain entity
