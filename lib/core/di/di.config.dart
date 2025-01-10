@@ -12,6 +12,15 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/home/data/data_sources/remote/base_home_remote_data_source.dart'
+    as _i792;
+import '../../features/home/data/data_sources/remote/home_remote_data_source_impl.dart'
+    as _i985;
+import '../../features/home/data/repo/home_repo_impl.dart' as _i1024;
+import '../../features/home/domain/repo/base_home_repo.dart' as _i172;
+import '../../features/home/domain/use_cases/home_use_case.dart' as _i933;
+import '../../features/home/presentation/controller/home_cubit/home_cubit.dart'
+    as _i498;
 import '../../features/login/data/data_sources/remote/base_remote_login_data_source.dart'
     as _i444;
 import '../../features/login/data/data_sources/remote/remote_login_data_source_impl.dart'
@@ -52,12 +61,20 @@ extension GetItInjectableX on _i174.GetIt {
         _i117.RemoteSignUpDataSourceImpl(restClient: gh<_i876.RestClient>()));
     gh.factory<_i594.BaseSignUpRepo>(() => _i138.SignUpRepoImpl(
         baseRemoteSignUpDataSource: gh<_i200.BaseRemoteSignUpDataSource>()));
+    gh.factory<_i792.BaseHomeRemoteDataSource>(() =>
+        _i985.HomeRemoteDataSourceImpl(restClient: gh<_i876.RestClient>()));
     gh.factory<_i444.BaseRemoteLoginDataSource>(() =>
         _i259.RemoteLoginDataSourceImpl(apiService: gh<_i876.RestClient>()));
     gh.factory<_i273.SingUpUseCase>(
         () => _i273.SingUpUseCase(baseSingUpRepo: gh<_i594.BaseSignUpRepo>()));
+    gh.factory<_i172.BaseHomeRepo>(() => _i1024.HomeRepoImpl(
+        baseHomeDataSource: gh<_i792.BaseHomeRemoteDataSource>()));
     gh.factory<_i375.BaseLoginRepo>(() => _i176.LoginRepoImpl(
         baseRemoteLoginDataSource: gh<_i444.BaseRemoteLoginDataSource>()));
+    gh.factory<_i933.HomeUseCase>(
+        () => _i933.HomeUseCase(baseHomeRepo: gh<_i172.BaseHomeRepo>()));
+    gh.factory<_i498.HomeCubit>(
+        () => _i498.HomeCubit(homeUseCase: gh<_i933.HomeUseCase>()));
     gh.factory<_i484.SignUpCubit>(
         () => _i484.SignUpCubit(singUpUseCases: gh<_i273.SingUpUseCase>()));
     gh.factory<_i191.LoginUseCase>(
