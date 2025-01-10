@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'doctor_shimmer.dart';
+import 'specialty_shimmer.dart';
+
 class HomeViewBlocConsumer extends StatelessWidget {
   const HomeViewBlocConsumer({super.key});
 
@@ -47,12 +50,21 @@ class HomeViewBlocConsumer extends StatelessWidget {
             ),
           );
         } else if (state is SpeciallyLoadingState) {
-          return SizedBox(
-            height: 100.h,
-            child: const Center(
-              child: CircularProgressIndicator(),
+          return Expanded(
+            child: Column(
+              children: [
+                const SpecialtyShimmer(),
+                verticalSpace(height: 8.h),
+                const DoctorShimmer(),
+              ],
             ),
           );
+          // SizedBox(
+          //   height: 100.h,
+          //   child: const Center(
+          //     child: CircularProgressIndicator(),
+          //   ),
+          // );
         } else if (state is HomeFailureState) {
           return Center(
             child: Padding(
