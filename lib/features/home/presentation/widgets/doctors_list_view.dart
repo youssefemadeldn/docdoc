@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:docdoc/core/helper/spacing.dart';
+import 'package:docdoc/core/theme/app_colors.dart';
 import 'package:docdoc/core/theme/app_styles.dart';
 import 'package:docdoc/features/home/domain/entities/home_response_entity.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,11 @@ class DoctorsListView extends StatelessWidget {
                     width: 110.w,
                     height: 120.h,
                     progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            CircularProgressIndicator(
-                                value: downloadProgress.progress),
+                        (context, url, downloadProgress) => Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          color: AppColors.lightBlue),
+                    ),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
