@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:docdoc/core/cache/shared_pref.dart';
+import 'package:docdoc/core/cache/secure_storage_utils.dart';
+// import 'package:docdoc/core/cache/shared_pref.dart';
 import 'package:docdoc/core/error/failure.dart';
 import 'package:docdoc/core/network/network_helper.dart';
 import 'package:docdoc/core/network/rest_client.dart';
@@ -19,8 +20,9 @@ class HomeRemoteDataSourceImpl implements BaseHomeRemoteDataSource {
   @override
   Future<Either<Failure, HomeResponseEntity>> getHomeData() async {
     try {
-      HomeResponseModel homeResponseModel = await restClient
-          .getSpeciallyDoctors('Bearer ${SharedPrefUtils.getData('token')}');
+      var token = await SecureStorageUtils.readValue('token');
+      HomeResponseModel homeResponseModel =
+          await restClient.getSpeciallyDoctors('Bearer $token');
       if (NetworkHelper.isValidResponse(code: homeResponseModel.code)) {
         // Success Case:
         //Mapping response to domain entity
@@ -32,7 +34,7 @@ class HomeRemoteDataSourceImpl implements BaseHomeRemoteDataSource {
         return left(
           ServerFailure(
             failureTitle: 'Server Error',
-            errorMessage: 'user name or password are incorrect',
+            errorMessage: homeResponseModel.message ?? 'Server Error',
           ),
         );
       }

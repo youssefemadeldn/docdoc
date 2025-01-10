@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:docdoc/core/cache/shared_pref.dart';
+import 'package:docdoc/core/cache/secure_storage_utils.dart';
+// import 'package:docdoc/core/cache/shared_pref.dart';
 import 'package:docdoc/core/error/failure.dart';
 import 'package:docdoc/core/network/network_helper.dart';
 import 'package:docdoc/core/network/rest_client.dart';
@@ -30,8 +31,10 @@ class RemoteLoginDataSourceImpl extends BaseRemoteLoginDataSource {
         LoginResponseEntity loginResponseEntity =
             LoginMapper.toDomain(loginResponseModel);
         // 2 save User token
-        SharedPrefUtils.saveData(
-            key: 'token', data: loginResponseEntity.userData!.token);
+        // SharedPrefUtils.saveData(
+        //     key: 'token', data: loginResponseEntity.userData!.token);
+        await SecureStorageUtils.writeValue(
+            key: 'token', value: loginResponseEntity.userData!.token ?? '');
         return right(loginResponseEntity);
       } else {
         // Server Error Case:
