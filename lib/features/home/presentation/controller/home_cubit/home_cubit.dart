@@ -12,7 +12,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeUseCase homeUseCase;
 
-  HomeCubit({required this.homeUseCase}) : super(HomeInitialState());
+  HomeCubit({required this.homeUseCase}) : super(SpeciallyLoadingState());
 
   void getHomeData() async {
     emit(SpeciallyLoadingState());
